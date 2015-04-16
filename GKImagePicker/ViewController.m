@@ -19,6 +19,8 @@
 @property (nonatomic, strong) UIImageView *imgView;
 @property (nonatomic, strong) UIButton* resizableButton;
 
+@property (nonatomic) BOOL isGoDirectlyToImagePicker;
+
 @end
 
 @implementation ViewController
@@ -33,11 +35,16 @@
 - (void)showPicker:(UIButton *)btn{
     
     self.imagePicker = [[GKImagePicker alloc] init];
-    self.imagePicker.cropSize = CGSizeMake(320, 496);
+    self.imagePicker.cropSize = CGSizeMake(self.view.frame.size.width,  self.view.frame.size.width/1.586);
     self.imagePicker.delegate = self;
     imagePicker.useFrontCameraAsDefault = YES;
-
-    [self.imagePicker showActionSheetOnViewController:self onPopoverFromView:btn];
+    
+    if (self.isGoDirectlyToImagePicker) {
+        self.imagePicker.presentingViewController = self;
+        [self.imagePicker showGalleryImagePicker];
+    } else {
+        [self.imagePicker showActionSheetOnViewController:self onPopoverFromView:btn];
+    }
 }
 
 - (void)showNormalPicker:(UIButton *)btn{
@@ -69,12 +76,19 @@
     imagePicker.minWidthRatio = 0.5;
     imagePicker.useFrontCameraAsDefault = YES;
 
-    [self.imagePicker showActionSheetOnViewController:self onPopoverFromView:btn];
+    if (self.isGoDirectlyToImagePicker) {
+        self.imagePicker.presentingViewController = self;
+        [self.imagePicker showGalleryImagePicker];
+    } else {
+        [self.imagePicker showActionSheetOnViewController:self onPopoverFromView:btn];
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.isGoDirectlyToImagePicker = YES;
 	
     self.customCropButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     CGFloat buttonWidth = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 220 : 280;

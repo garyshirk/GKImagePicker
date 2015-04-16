@@ -20,7 +20,11 @@
 @property (nonatomic, assign) float minWidthRatio;
 @property (nonatomic, assign) BOOL useFrontCameraAsDefault;
 
+@property (nonatomic, weak) UIViewController *presentingViewController;
+
 - (void)showActionSheetOnViewController:(UIViewController *)viewController onPopoverFromView:(UIView *)popoverView;
+
+- (void)showGalleryImagePicker;
 
 @end
 

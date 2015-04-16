@@ -11,7 +11,6 @@
 #import "GKImageCropViewController.h"
 
 @interface GKImagePicker ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, GKImageCropControllerDelegate, UIActionSheetDelegate>
-@property (nonatomic, weak) UIViewController *presentingViewController;
 @property (nonatomic, weak) UIView *popoverView;
 @property (nonatomic, strong) UIPopoverController *popoverController;
 @property (nonatomic, strong) UIImagePickerController *imagePickerController;
